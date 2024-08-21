@@ -9,9 +9,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(deleteBook),
-
-      body: buildBody(context, _items, deleteBook),
-
+      body: buildBody(context, _items,false, deleteBook),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Hero(
         tag: 'addButton',

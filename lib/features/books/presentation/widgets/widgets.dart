@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-GridView buildBody(BuildContext context, List items, bool deleteBook) {
+GridView buildBody(BuildContext context, List items, bool deleteBook, bool getBook) {
   return GridView.builder(
     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 3,
@@ -11,11 +11,35 @@ GridView buildBody(BuildContext context, List items, bool deleteBook) {
     padding: const EdgeInsets.symmetric(vertical: 40,horizontal: 20),
     itemCount: items.length,
     itemBuilder: (BuildContext context, int index){
-      return _book(context, index, deleteBook);
+      return getBook == true ? _foundedBook(index)  : _book(index, deleteBook);
     },
   );
 }
-Widget _book(BuildContext context,int index, bool deleteBook){
+
+
+Widget _foundedBook(int index){
+  return GestureDetector(
+  onTap: (){},
+  child: Container(
+    decoration: const BoxDecoration(
+    color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+      image: DecorationImage(image: AssetImage('asd')),
+      boxShadow:[
+        BoxShadow(
+          color: Colors.black,
+          blurRadius: 4,
+          offset: Offset(0, 4),
+        )
+      ]
+    ),
+  ),
+  );
+}
+
+
+
+Widget _book(int index, bool deleteBook){
 
   return  GestureDetector(
     onTapCancel: (){},
