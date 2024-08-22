@@ -1,25 +1,9 @@
 import 'package:flutter/material.dart';
 
-GridView buildBody(BuildContext context, List items, bool deleteBook, bool getBook) {
-  return GridView.builder(
-    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 3,
-      mainAxisExtent: MediaQuery.of(context).size.height/5,
-      crossAxisSpacing: 30,
-      mainAxisSpacing: 40,
-    ),
-    padding: const EdgeInsets.symmetric(vertical: 40,horizontal: 20),
-    itemCount: items.length,
-    itemBuilder: (BuildContext context, int index){
-      return getBook == true ? _foundedBook(index)  : _book(index, deleteBook);
-    },
-  );
-}
 
-
-Widget _foundedBook(int index){
+Widget foundedBook(BuildContext context, int index){
   return GestureDetector(
-  onTap: (){},
+  onTap: (){Navigator.pushReplacementNamed(context,'/bookInfoPage');},
   child: Container(
     decoration: const BoxDecoration(
     color: Colors.white,
@@ -39,15 +23,15 @@ Widget _foundedBook(int index){
 
 
 
-Widget _book(int index, bool deleteBook){
+Widget book(BuildContext context,int index, bool deleteBook){
 
   return  GestureDetector(
-    onTapCancel: (){},
+    onTap: (){Navigator.pushReplacementNamed(context,'/bookInfoPage');},
     child: Container(
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(20)),
-          image: DecorationImage(image: AssetImage('asd')),
+          image: DecorationImage(image: AssetImage('assetName')),
           boxShadow:[
             BoxShadow(
               color: Colors.black,
@@ -74,6 +58,7 @@ Widget _book(int index, bool deleteBook){
 
 AppBar buildAppBar(bool deleteBook) {
   return AppBar(
+    automaticallyImplyLeading: false,
     title: const Text('Booker'),
     leading:  GestureDetector(
       onTap: (){},
