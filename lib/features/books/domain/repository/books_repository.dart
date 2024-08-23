@@ -1,7 +1,7 @@
 
-import 'package:read_diary/features/books/domain/entity/books.dart';
+import 'package:read_diary/core/resorces.dart';
 
 abstract class BooksRepository{
   //API
-  Future<List<BooksEntity>> getBooksInfo(bookName);
+  Future<DataState> getBooksInfo(bookName);
 }

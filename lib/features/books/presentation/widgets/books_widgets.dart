@@ -1,26 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:read_diary/features/books/domain/entity/books.dart';
+import 'package:read_diary/features/books/presentation/pages/get_book_info_page.dart';
 
+class FoundedBookWidget {
+  final BooksEntity ? booksEntity;
+  const FoundedBookWidget({ this.booksEntity});
 
-Widget foundedBook(BuildContext context, int index){
-  return GestureDetector(
-  onTap: (){Navigator.pushReplacementNamed(context,'/bookInfoPage');},
-  child: Container(
-    decoration: const BoxDecoration(
-    color: Colors.white,
-      borderRadius: BorderRadius.all(Radius.circular(20)),
-      image: DecorationImage(image: AssetImage('asd')),
-      boxShadow:[
-        BoxShadow(
-          color: Colors.black,
-          blurRadius: 4,
-          offset: Offset(0, 4),
-        )
-      ]
-    ),
-  ),
-  );
+  Widget foundedBook(BuildContext context, int index) {
+    return GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder:(context)=>GetBookInfoPage(booksEntity: booksEntity!)));
+          },
+          child: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            image: DecorationImage(image: NetworkImage(booksEntity!.imageLinks!['thumbnail'])),
+            boxShadow:  const [
+              BoxShadow(
+                color: Colors.black,
+                blurRadius: 4,
+                offset: Offset(0, 4),
+              )
+            ]
+        ),
+      )
+    );
+  }
 }
-
 
 
 Widget book(BuildContext context,int index, bool deleteBook){
@@ -31,7 +38,7 @@ Widget book(BuildContext context,int index, bool deleteBook){
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(20)),
-          image: DecorationImage(image: AssetImage('assetName')),
+          //image: DecorationImage(image: AssetImage('assetName')),
           boxShadow:[
             BoxShadow(
               color: Colors.black,

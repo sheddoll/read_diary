@@ -3,13 +3,13 @@ import '../../domain/entity/books.dart';
 class BooksModel extends BooksEntity {
   const BooksModel({
     String ? title,
-    List<String> ? authors,
+    List<dynamic> ? authors,
     String ? publisher,
     String ? publishedDate,
     String ? description,
     int ? pageCount,
-    List<String> ? categories,
-    Map<String,String> ? imageLinks,
+    List<dynamic> ? categories,
+    Map<dynamic,dynamic> ? imageLinks,
   }): super(
     title: title,
     authors: authors,

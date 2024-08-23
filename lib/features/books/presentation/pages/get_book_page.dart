@@ -1,26 +1,64 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:read_diary/features/books/presentation/bloc/get_books/remote_books_bloc.dart';
+import 'package:read_diary/features/books/presentation/bloc/get_books/remote_books_state.dart';
 import 'package:read_diary/features/books/presentation/widgets/books_widgets.dart';
 
 class GetBookPage extends StatelessWidget {
   GetBookPage({super.key});
-  final List _items = [1,3,4,5,6,7,1];
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: _buildAppBar(context),
-      body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          mainAxisExtent: MediaQuery.of(context).size.height/5,
-          crossAxisSpacing: 30,
-          mainAxisSpacing: 40,
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 40,horizontal: 20),
-        itemCount: _items.length,
-        itemBuilder: (BuildContext context, int index){
-          return  foundedBook(context, index);
+      body: BlocBuilder<RemoteBooksBloc,RemoteBooksState>(
+        builder: (_,state){
+          if(state is RemoteBooksLoading){
+            return const Center(
+              child: CupertinoActivityIndicator(),
+            );
+          }
+          if(state is RemoteBooksError){
+            return  Center(
+              child: AnimatedOpacity(
+                duration: const Duration(seconds: 1),
+                opacity: 0.5,
+                child: Container(
+                  color: const Color.fromRGBO(101, 85, 143, 1),
+                  height: MediaQuery.of(context).size.height/4,
+                  width: MediaQuery.of(context).size.width/1.5,
+                  child: const Column(
+                    children: [
+                      Text('Книги не найдены'),
+                      Icon(Icons.refresh),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }
+          if(state is RemoteBooksDone){
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisExtent: MediaQuery.of(context).size.height/5,
+                crossAxisSpacing: 30,
+                mainAxisSpacing: 40,
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 40,horizontal: 20),
+              itemCount: state.books?.length,
+              itemBuilder: (BuildContext context, int index){
+                return  FoundedBookWidget(booksEntity: state.books![index]).foundedBook(context, index);
+              },
+            );
+          }
+          return const SizedBox.shrink();
         },
+
       ),
+
+
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Hero(
         tag: 'addButton',

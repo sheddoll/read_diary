@@ -7,12 +7,12 @@ class BookInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          buildInfoWidget(context),
-          buildButtonsWidget(context),
-        ]
-      )
+        body: Stack(
+            children: [
+              buildInfoWidget(context),
+              buildButtonsWidget(context),
+            ]
+        )
     );
   }
 }

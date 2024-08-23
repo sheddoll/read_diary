@@ -1,12 +1,12 @@
 class BooksEntity{
   final String ? title;
-  final List<String> ? authors;
+  final List<dynamic> ? authors;
   final String ? publisher;
   final String ? publishedDate;
   final String ? description;
   final int ? pageCount;
-  final List<String> ? categories;
-  final Map<String,String> ? imageLinks;
+  final List<dynamic> ? categories;
+  final Map<dynamic,dynamic> ? imageLinks;
 
   const BooksEntity({
     this.title,

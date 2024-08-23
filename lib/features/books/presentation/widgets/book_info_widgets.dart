@@ -53,21 +53,11 @@ Column buildInfoWidget(BuildContext context) {
   return Column(
     children: [
       Image.network(
-        defaultCover, // Ваше изображение
+        defaultCover,
         fit: BoxFit.cover,
         width: double.infinity,
         height: MediaQuery.of(context).size.height/3,
       ),
-
-
-
-      /*this.title,
-      this.authors,
-      this.publisher,
-      this.publishedDate,
-      this.description,
-      this.pageCount,
-      this.categories,*/
       Expanded(
         child: ListView(
             padding: const EdgeInsets.all(16.0),
