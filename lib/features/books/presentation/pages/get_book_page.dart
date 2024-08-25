@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:read_diary/features/books/presentation/bloc/get_books/remote_books_bloc.dart';
+import 'package:read_diary/features/books/presentation/bloc/get_books/remote_books_event.dart';
 import 'package:read_diary/features/books/presentation/bloc/get_books/remote_books_state.dart';
 import 'package:read_diary/features/books/presentation/widgets/books_widgets.dart';
 
@@ -13,6 +14,25 @@ class GetBookPage extends StatelessWidget {
       appBar: _buildAppBar(context),
       body: BlocBuilder<RemoteBooksBloc,RemoteBooksState>(
         builder: (_,state){
+          if(state is RemoteBooksStart){
+            return Center(
+              child: AnimatedOpacity(
+                duration: const Duration(seconds: 1),
+                opacity: 0.5,
+                child: Container(
+                  color: const Color.fromRGBO(101, 85, 143, 1),
+                  height: MediaQuery.of(context).size.height/4,
+                  width: MediaQuery.of(context).size.width/1.5,
+                  child: const Column(
+                    children: [
+                      Text('Введите название книги'),
+                      Icon(Icons.search),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }
           if(state is RemoteBooksLoading){
             return const Center(
               child: CupertinoActivityIndicator(),
@@ -77,27 +97,34 @@ class GetBookPage extends StatelessWidget {
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
-      title: TextField(
-        decoration: const InputDecoration(
-          hintText: 'Введите название',
-          hintStyle: TextStyle(color: Colors.grey),
-          filled: true,
-          fillColor: Color(0xFFEAE6EF),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),// Закругление углов
-            borderSide: BorderSide.none,
-            ),
-          enabledBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-            borderSide: BorderSide(color: Color.fromRGBO(29, 27, 32, 1),
-            )
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-            borderSide: BorderSide.none),
-          ),
-        style: const TextStyle(fontSize: 18.0, decoration: TextDecoration.none),
-        onEditingComplete: (){},
+
+      title: BlocBuilder<RemoteBooksBloc,RemoteBooksState>(
+        builder: (context, state) {
+          return TextField(
+            decoration: const InputDecoration(
+              hintText: 'Введите название',
+              hintStyle: TextStyle(color: Colors.grey),
+              filled: true,
+              fillColor: Color(0xFFEAE6EF),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),// Закругление углов
+                borderSide: BorderSide.none,
+                ),
+              enabledBorder: UnderlineInputBorder(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                borderSide: BorderSide(color: Color.fromRGBO(29, 27, 32, 1),
+                )
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                borderSide: BorderSide.none),
+              ),
+            style: const TextStyle(fontSize: 18.0, decoration: TextDecoration.none),
+            onSubmitted: (value){
+              context.read<RemoteBooksBloc>().add(GetBooks(value));
+            },
+          );
+        }
       )
     );
   }

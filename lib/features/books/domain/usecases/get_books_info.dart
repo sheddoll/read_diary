@@ -7,10 +7,9 @@ class GetBooksInfoUseCase implements UseCase{
 
   GetBooksInfoUseCase(this._booksRepository);
 
-  get bookName => 'Гарри Поттер';
 
   @override
-  Future<DataState> call({void params}){
+  Future<DataState> call({required String bookName,void params}){
     return _booksRepository.getBooksInfo(bookName);
   }
 }

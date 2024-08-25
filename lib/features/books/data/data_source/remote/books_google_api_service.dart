@@ -5,7 +5,7 @@ import 'package:read_diary/core/resorces.dart';
 import 'package:read_diary/features/books/data/models/books.dart';
 class BooksApi {
   Future<DataState> getBooks(String bookName) async {
-    final response = await Dio().get('$booksAPI$bookName&maxResults=30');
+    final response = await Dio().get('$booksAPI$bookName&maxResults=10');
     try {
       final _items = response.data["items"] as List<dynamic>?;
 

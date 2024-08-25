@@ -8,15 +8,21 @@ import 'package:read_diary/features/books/presentation/bloc/get_books/remote_boo
 class RemoteBooksBloc extends Bloc<RemoteBooksEvent,RemoteBooksState>{
 
   final GetBooksInfoUseCase _getBooksInfoUseCase;
-  RemoteBooksBloc(this._getBooksInfoUseCase): super(const RemoteBooksLoading()){
+  RemoteBooksBloc(this._getBooksInfoUseCase): super(RemoteBooksStart()){
     on <GetBooks> (onGetBooks);
+    on <AwaitGetBooks>(onAwaitGetBooks);
   }
 
 
-  void onGetBooks(GetBooks event, Emitter <RemoteBooksState> emit) async{
-    final dataState = await _getBooksInfoUseCase();
+void onGetBooks(GetBooks event, Emitter <RemoteBooksState> emit) async{
+    emit(
+        RemoteBooksLoading()
+    );
+
+    final dataState = await _getBooksInfoUseCase(bookName: event.bookName);
     debugPrint('Я принт из блока'+dataState.data.toString());
     debugPrint('Я принт из блока'+dataState.exception.toString());
+
      if(dataState is DataSuccess){
        emit(
            RemoteBooksDone(dataState.data)
@@ -29,6 +35,14 @@ class RemoteBooksBloc extends Bloc<RemoteBooksEvent,RemoteBooksState>{
 
        );
      }
-
   }
+
+}
+
+void onAwaitGetBooks(AwaitGetBooks event, Emitter<RemoteBooksState> emit) {
+
+  emit (
+    RemoteBooksStart()
+  );
+
 }

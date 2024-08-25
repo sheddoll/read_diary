@@ -3,5 +3,10 @@ abstract class RemoteBooksEvent {
 }
 
 class GetBooks extends RemoteBooksEvent {
-  const GetBooks();
+  String bookName;
+  GetBooks(this.bookName);
+}
+
+class AwaitGetBooks extends RemoteBooksEvent{
+  const AwaitGetBooks();
 }

@@ -5,20 +5,24 @@ abstract class RemoteBooksState {
   final List<BooksEntity> ? books;
   final DioException ? exception;
 
-  const RemoteBooksState({this.books,this.exception});
+  RemoteBooksState({this.books,this.exception});
 
   List<Object> get props => [books!, exception!];
 
 }
 
 class RemoteBooksLoading extends RemoteBooksState {
-  const RemoteBooksLoading();
+   RemoteBooksLoading();
 }
 
 class RemoteBooksDone extends RemoteBooksState {
-  const RemoteBooksDone(List<BooksEntity> books) : super(books: books);
+   RemoteBooksDone(List<BooksEntity> books) : super(books: books);
 }
 
 class RemoteBooksError extends RemoteBooksState {
-  const RemoteBooksError(DioException exception) : super(exception: exception);
+   RemoteBooksError(DioException exception) : super(exception: exception);
+}
+
+class RemoteBooksStart extends RemoteBooksState{
+   RemoteBooksStart();
 }

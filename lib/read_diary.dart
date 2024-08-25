@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RemoteBooksBloc>(
-      create: (context) => sl()..add(const GetBooks()),
+      create: (context) => sl()..add(const AwaitGetBooks()),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: theme(),

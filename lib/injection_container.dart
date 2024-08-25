@@ -26,7 +26,7 @@ Future<void> initializeDependencies() async{
   
   //BLoC
   sl.registerFactory<RemoteBooksBloc>(
-      ()=> RemoteBooksBloc(sl())
+      ()=> RemoteBooksBloc(sl(),)
   );
 
 }
