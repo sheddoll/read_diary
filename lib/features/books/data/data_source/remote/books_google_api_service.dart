@@ -42,7 +42,7 @@ class BooksApi {
             imageLinks: info['imageLinks'] ?? defaultCover,
           ));
 
-          debugPrint('Добавлена книга: ' + info['title'].toString());
+          debugPrint('Добавлена книга: ${info['title']}');
         } catch (e) {
           debugPrint('Ошибка при парсинге элемента: $e');
         }
@@ -53,7 +53,7 @@ class BooksApi {
         return DataFailed(DioException(requestOptions: response.requestOptions));
       }
 
-      debugPrint('Я принт из АПИ (Только книги): ' + books.toString());
+      debugPrint('Я принт из АПИ (Только книги): $books');
 
       // Возвращаем успешный результат с списком книг
       return DataSuccess(books);

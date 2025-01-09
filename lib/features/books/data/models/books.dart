@@ -1,25 +1,17 @@
 import '../../domain/entity/books.dart';
 
-class BooksModel extends BooksEntity {
+class BooksModel extends BookEntity {
   const BooksModel({
-    String ? title,
-    List<dynamic> ? authors,
-    String ? publisher,
-    String ? publishedDate,
-    String ? description,
-    int ? pageCount,
-    List<dynamic> ? categories,
-    Map<dynamic,dynamic> ? imageLinks,
-  }): super(
-    title: title,
-    authors: authors,
-    publisher: publisher,
-    publishedDate: publishedDate,
-    description: description,
-    pageCount: pageCount,
-    categories: categories,
-    imageLinks: imageLinks,
-  );
+    super.title,
+    super.authors,
+    super.publisher,
+    super.publishedDate,
+    super.description,
+    super.pageCount,
+    super.categories,
+    super.imageLinks,
+    super.userComments,
+  });
 
   factory BooksModel.fromJson(Map < String, dynamic > map) {
     return BooksModel(
@@ -34,7 +26,7 @@ class BooksModel extends BooksEntity {
     );
   }
 
-  factory BooksModel.fromEntity(BooksEntity entity) {
+  factory BooksModel.fromEntity(BookEntity entity) {
     return BooksModel(
       title: entity.title,
       authors: entity.authors,
